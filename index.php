@@ -23,24 +23,48 @@
             [
                 'name' => 'Do Androids Dream of Electric Sheep',
                 'author' => 'Phillip K. Dick',
+                'releaseYear' => 1968,
                 'purchaseUrl' => 'www.example.com'
             ],
             [
                 'name' => 'Project Hail Mary',
-                'author' => 'Anderw Weir',
+                'author' => 'Andrew Weir',
+                'releaseYear' => 2021,
+                'purchaseUrl' => 'www.example.com'
+            ],
+            [
+                'name' => 'The Martian',
+                'author' => 'Andrew Weir',
+                'releaseYear' => 2011,
                 'purchaseUrl' => 'www.example.com'
             ]
-
         ];
+        function filter($items, $fn)
+        {
+            $filteredItems = [];
+
+            foreach ($items as $item)
+                if ($fn($item)) {
+                    $filteredItems[] = $item;
+                }
+            return $filteredItems;
+        }
+
+
+        $filteredBooks = array_filter($books, function ($book) {
+            return $book['author'] === 'Andrew Weir';
+        });
+
         ?>
         <ul>
-            <?php foreach ($books as $book): ?>
+            <?php foreach ($filteredBooks as $book): ?>
                 <li><a href="<?= $book['purchaseUrl'] ?>">
                         <?= $book['name']; ?>
                     </a>
                 </li>
             <?php endforeach; ?>
         </ul>
+
     </body>
 
 </html>
